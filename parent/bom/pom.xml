@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ TICPY Framework
+ Copyright (C) 2012 Plan Director TICs
+ 
+ ============================================================================
+ Originally developed by SERPRO
+ Demoiselle Framework
+ Copyright (C) 2010 SERPRO
+ 
+ ============================================================================
+ This file is part of TICPY Framework.
+ 
+ TICPY Framework is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public License version 3
+ as published by the Free Software Foundation.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License version 3
+ along with this program; if not,  see <http://www.gnu.org/licenses/>
+ or write to the Free Software Foundation, Inc., 51 Franklin Street,
+ Fifth Floor, Boston, MA  02110-1301, USA.
+ 
+ ============================================================================
+ Este archivo es parte del Framework TICPY.
+ 
+ El TICPY Framework es software libre; Usted puede redistribuirlo y/o
+ modificarlo bajo los términos de la GNU Lesser General Public Licence versión 3
+ de la Free Software Foundation.
+ 
+ Este programa es distribuido con la esperanza que sea de utilidad,
+ pero sin NINGUNA GARANTÍA; sin una garantía implícita de ADECUACION a cualquier
+ MERCADO o APLICACION EN PARTICULAR. vea la GNU General Public Licence
+ más detalles.
+ 
+ Usted deberá haber recibido una copia de la GNU Lesser General Public Licence versión 3
+ "LICENCA.txt", junto con este programa; en caso que no, acceda a <http://www.gnu.org/licenses/>
+ o escriba a la Free Software Foundation (FSF) Inc.,
+ 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
+-->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>tekoporu-framework-bom</artifactId>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.ticpy.tekoporu</groupId>
+		<artifactId>tekoporu-framework-parent</artifactId>
+		<version>2.3.0-SNAPSHOT</version>
+		<relativePath>../framework</relativePath>
+	</parent>
+
+	<name>Tekoporu Framework Bill of Materials</name>
+	<description>
+		Contiene la lista de dependencias utilizadas para construir el Framework
+	</description>
+	<url>http://www.datosparaguay.org</url>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License, Version 3</name>
+			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>SENATICS - Secretaría Nacional de Tecnologías de la Información y Comunicación</name>
+		<url>http://www.senatics.gov.py</url>
+	</organization>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- core + extensions -->
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-core</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-jta</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-jpa</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-servlet</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-jsf</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ticpy.tekoporu</groupId>
+				<artifactId>tekoporu-se</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<!-- rest, jax-rs -->
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxrs</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency> 
+
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>jaxrs-api</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-client</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jackson2-provider</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+
+			<!-- jsr-299 api -->
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>${cdi.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>jsr250-api</artifactId>
+						<groupId>javax.annotation</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- jsr-299 impl -->
+			<dependency>
+				<groupId>org.jboss.weld</groupId>
+				<artifactId>weld-core</artifactId>
+				<version>${weld.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>jsr250-api</artifactId>
+						<groupId>javax.annotation</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.weld.servlet</groupId>
+				<artifactId>weld-servlet-core</artifactId>
+				<version>${weld.version}</version>
+			</dependency>
+
+			<!-- jsr-303 api -->
+			<dependency>
+				<artifactId>validation-api</artifactId>
+				<groupId>javax.validation</groupId>
+				<version>${validation.version}</version>
+			</dependency>
+
+			<!-- jsr-303 impl -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate.validator.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.xml.bind</groupId>
+						<artifactId>jaxb-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-impl</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- jsr-??? api -->
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>el-api</artifactId>
+				<version>${el.version}</version>
+			</dependency>
+
+			<!-- jsr-??? api -->
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>el-impl</artifactId>
+				<version>${el.version}</version>
+			</dependency>
+
+			<!-- jsr-314 api -->
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+
+			<!-- jsr-314 impl -->
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>${primefaces.version}</version>
+			</dependency>
+
+			<!-- jsr-316 api -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${javaee.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-web-api</artifactId>
+				<version>${javaee.version}</version>
+			</dependency>
+
+			<!-- jsr-??? api -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
+			</dependency>
+
+			<!-- jsr-317 api -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>javax.persistence</artifactId>
+				<version>${persistence.version}</version>
+			</dependency>
+
+			<!-- jsr-317 impl -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- jsr-907 api -->
+			<dependency>
+				<groupId>javax.transaction</groupId>
+				<artifactId>jta</artifactId>
+				<version>${transaction.version}</version>
+			</dependency>
+
+			<!-- logger api -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- logger impl -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- configuration api+impl -->
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>${commons.configuration.version}</version>
+			</dependency>
+			
+			<!-- Apache Shiro -->
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+
+			<!-- embedded database -->
+			<dependency>
+				<groupId>hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+			</dependency>
+
+			<dependency>
+				<artifactId>javassist</artifactId>
+				<groupId>org.javassist</groupId>
+				<version>${javassist.version}</version>
+			</dependency>
+
+			<!-- test tools -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>${powermock.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-easymock</artifactId>
+				<version>${powermock.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.easymock</groupId>
+				<artifactId>easymock</artifactId>
+				<version>${easymock.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>artifactory-snapshots</id>
+			<name>Tekoporu Maven Repository</name>
+			<url>http://www.datosparaguay.org/artifactory/libs-snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>artifactory-releases</id>
+			<name>Tekoporu Maven Repository</name>
+			<url>http://www.datosparaguay.org/artifactory/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<properties>
+		<javaee.version>6.0</javaee.version>
+		<cdi.version>1.0-SP4</cdi.version>
+		<validation.version>1.0.0.GA</validation.version>
+		<transaction.version>1.1</transaction.version>
+		<jsf.version>2.1.11</jsf.version>
+		<el.version>2.2</el.version>
+		<servlet.version>2.5</servlet.version>
+		<persistence.version>2.0.0</persistence.version>
+
+		<hibernate.version>4.1.7.Final</hibernate.version>
+		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+
+		<junit.version>4.8.1</junit.version>
+		<easymock.version>3.0</easymock.version>
+		<arquillian.junit.version>1.0.0.Alpha4.SP2</arquillian.junit.version>
+		<arquillian.weld.embdedded.version>1.0.0.Alpha2</arquillian.weld.embdedded.version>
+		<powermock.version>1.4.6</powermock.version>
+		<primefaces.version>4.0</primefaces.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<weld.version>1.1.8.Final</weld.version>
+		<commons.configuration.version>1.5</commons.configuration.version>
+		<hsqldb.version>1.8.0.10</hsqldb.version>
+		<jasperreports.version>4.0.1</jasperreports.version>
+		<mail.version>1.4.4</mail.version>
+		<javassist.version>3.14.0-GA</javassist.version>
+		<framework.version>2.3.0-SNAPSHOT</framework.version>
+		<resteasy.version>3.0.6.Final</resteasy.version>
+		<shiro.version>1.2.3</shiro.version>
+	</properties>
+</project>

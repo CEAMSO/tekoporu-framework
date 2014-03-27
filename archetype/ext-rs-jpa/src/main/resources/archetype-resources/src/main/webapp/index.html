@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Bookmarks App</title>
+    <style>
+        #loading-mask {
+            background-color: white;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 20000;
+        }
+
+        #loading {
+            height: auto;
+            position: absolute;
+            left: 40%;
+            top: 40%;
+            padding: 2px;
+            z-index: 20001;
+        }
+
+        #loading a {
+            color: #225588;
+        }
+
+        #loading .loading-indicator {
+            background: white;
+            color: #444;
+            font: bold 13px Helvetica, Arial, sans-serif;
+            height: auto;
+            margin: 0;
+            padding: 10px;
+        }
+
+        #loading-msg {
+            font-size: 10px;
+            font-weight: normal;
+        }
+    </style>
+
+    <!-- Ext JS -->
+    <link rel="stylesheet" type="text/css" href="ext-4/resources/ext-theme-neptune/ext-theme-neptune-all.css">
+    <!--     <link rel="stylesheet" type="text/css" href="/css/style.css"> -->
+    <script type="text/javascript" src="ext-4/ext-all-dev.js"></script>
+
+    <!-- Application -->
+    <script type="text/javascript" src="config/environment.js"></script>
+    <script type="text/javascript" src="config/development.js"></script>
+    <script type="text/javascript" src="config/router.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    
+</head>
+<body>
+<div id="loading" style=""></div>
+<div id="loading-mask" style=""></div>
+
+<form id="history-form" class="x-hide-display">
+    <input type="hidden" id="x-history-field"/>
+    <iframe id="x-history-frame"></iframe>
+</form>
+</body>
+</html>
