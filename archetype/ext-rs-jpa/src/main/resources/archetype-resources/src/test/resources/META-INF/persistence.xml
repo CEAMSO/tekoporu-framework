@@ -8,6 +8,9 @@
 	<persistence-unit name="bookmark-ds" transaction-type="RESOURCE_LOCAL">
 
 		<class>${package}.domain.Bookmark</class>
+		<class>${package}.domain.Usuario</class>
+		<class>${package}.domain.Rol</class>
+		<class>${package}.domain.Permiso</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
