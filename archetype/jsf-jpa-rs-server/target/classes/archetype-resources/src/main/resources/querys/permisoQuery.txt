@@ -1,0 +1,2 @@
+select p.clave, p.instancia, p.operacion, p.recurso from usuario u join usuario_rol ur on (u.id = ur.usuarios_id) 
+join rol_permiso rp on (ur.roles_id = rp.roles_id) join permiso p on (rp.permisos_id = p.id) where u.username='{0}' 

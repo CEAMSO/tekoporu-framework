@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>#{messages['main.app.title']}</title>
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/bootstrap-datepicker.js" />
+	<h:outputScript name="js/locales/bootstrap-datepicker.es.js" />
+	<h:outputScript name="js/jquery.datetimepicker.js" />
+	<script src="#{request.contextPath}/ckeditor/ckeditor.js" />
+
+</h:head>
+<h:body>
+	<f:event type="preRenderView" listener="#{sessionMB.cerrarSession()}" />
+	<f:facet name="last">
+		<h:outputStylesheet name="css/jquery.datetimepicker.css" />
+		<h:outputStylesheet name="css/bootstrap.css" />
+		<h:outputStylesheet name="css/datepicker3.css" />
+		<h:outputStylesheet name="css/select2-bootstrap.css" />
+		<h:outputStylesheet name="css/custom-styles.css" />
+		<h:outputStylesheet name="css/bootstrap.min.css" />
+		<h:outputStylesheet name="css/signin.css" />
+	</f:facet>
+	<div class="panel panel-default fondo-gris">
+		<div class="panel-body">
+			<div class="container">
+
+				<h:form class="form-signin" role="form">
+					<h2 style="text-align:center;" class="form-signin-heading">Ingresar al Sistema</h2>
+					<p:inputText type="email" styleClass="form-control"
+						value="#{sessionMB.username}" placeholder="Email address"
+						required="true" autofocus="true" />
+					<p:inputText type="password" styleClass="form-control"
+						placeholder="Password" required="true"
+						value="#{sessionMB.password}" />
+					<p:commandButton styleClass="btn btn-lg btn-primary btn-block"
+						value="Iniciar
+							Sesión"
+						actionListener="#{sessionMB.iniciarSesion()}"></p:commandButton>
+				</h:form>
+
+			</div>
+		</div>
+	</div>
+	<h:outputScript name="js/activate-tabs.js" />
+	<h:outputScript name="js/activate-alerts.js" />
+	<h:outputScript name="js/jquery.validate.js" />
+	<h:outputScript name="js/validation.js" />
+</h:body>
+</html>

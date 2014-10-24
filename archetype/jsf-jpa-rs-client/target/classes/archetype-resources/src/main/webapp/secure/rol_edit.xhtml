@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../template/main.xhtml">
+	<f:metadata>
+
+		<f:viewParam name="rid" value="#{rolEditMB.idRol}" />
+
+		<f:event type="preRenderView" listener="#{rolEditMB.cargarRol}" />
+
+	</f:metadata>
+	<ui:define name="body">
+		<a name="top" />
+		<h:form id="title">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<div class="container-fluid">
+						<h1>#{messages['titulo.rol.label']}</h1>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<h:form prependId="false" id="formulario"
+					styleClass="form-horizontal">
+					<div class="container-fluid">
+						<div class="form-group"></div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Descripción </label>
+							</div>
+							<div class="col-md-10 field">
+								<h:inputText id="descripcion" rows="1" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{rolEditMB.rol.descripcion}"></h:inputText>
+								<p:watermark for="descripcion" value="Descripción" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-6">
+								<h:outputLabel value="#{messages['rol.permiso']}"
+									styleClass="control-label" />
+								<p:dataTable id="list2" var="bean" styleClass="table-default"
+									value="#{rolEditMB.listaPermisos}"
+									emptyMessage="#{messages['rol.sin.permisos']}">
+									<p:column style="width:10%;">
+										<h:selectBooleanCheckbox
+											value="#{rolEditMB.selectionPermisos[bean.id]}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{bean.clave}" />
+									</p:column>
+								</p:dataTable>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="panel panel-default fondo-gris">
+						<div class="panel-body">
+							<p:commandButton style="left:inherit" id="guardar"
+								styleClass="btn btn-primary btn-sm"
+								title="#{messages['boton.guardar']}"
+								actionListener="#{rolEditMB.insertAjax}"
+								value="#{messages['boton.guardar']}"
+								rendered="#{!rolEditMB.modoEdicion}" ajax="true"
+								onclick="!$('#formulario').valid() ? console.log('no valido') : console.log('valido');"
+								onstart="disableBtn();"
+								oncomplete="handleSaveRequest(xhr, status, args, '#{messages['mensaje.creacion.rol']}'); enableBtn();">
+							</p:commandButton>
+							<p:commandButton style="left:inherit" id="modificar"
+								styleClass="btn btn-primary  btn-sm"
+								title="#{messages['boton.guardar']}"
+								actionListener="#{rolEditMB.updateAjax}"
+								value="#{messages['boton.guardar']}"
+								rendered="#{rolEditMB.modoEdicion}" ajax="true"
+								onclick="!$('#formulario').valid() ? console.log('no valido') : disableBtn('desc');"
+								oncomplete="handleSaveRequest(xhr, status, args, '#{messages['mensaje.rol.actualizado.correctamente']}'); enableBtn('desc');">
+							</p:commandButton>
+						</div>
+					</div>
+
+					<h:outputScript name="js/validation.js" />
+					<h:outputScript name="js/activate-editors.js" />
+
+				</h:form>
+			</div>
+
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form id="title">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<div class="container-fluid">
+						<h1>#{messages['titulo.rol.list.label']}</h1>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+		<h:form prependId="false" styleClass="form-horizontal" id="listaForm">
+
+			<div class="panel panel-default">
+				<div class="panel-heading titulo-panel">#{messages['label.lista.resultados']}</div>
+				<div class="entry" style="line-height: 200%;">
+					<p:dataTable id="list" var="bean" value="#{rolListMB.roles}"
+						tableStyleClass="table" rows="#{rolListMB.roles.pageSize}"
+						paginator="true" lazy="true" paginatorPosition="bottom"
+						paginatorAlwaysVisible="false" dynamic="true"
+						emptyMessage="#{messages['label.empty.message']}">
+						<p:column style="width:5%;">
+							<h:selectBooleanCheckbox value="#{rolListMB.selection[bean.id]}">
+								<p:ajax listener="#{rolListMB.handleChange}"
+									update=":buttonsForm" />
+							</h:selectBooleanCheckbox>
+						</p:column>
+						<p:column style="width:80%;">
+							<f:facet name="header">#{messages['rol.label.descripcion']}</f:facet>
+							<h:outputText value="#{bean.descripcion}" />
+						</p:column>
+
+						<p:column style="width:15%;">
+							<f:facet name="header">#{messages['label.acciones']}</f:facet>
+							<p:fieldset style="padding:0">
+								<div class="btn-group">
+									<h:outputLink title="#{messages['boton.ver']}"
+										styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default btn-sm"
+										value="#{request.contextPath}#{rolListMB.verDetallesRol(bean)}"
+										rendered="#{(rolListMB.isPermittedLeerRol(bean))}">
+										<span class="ui-button-text ui-c">#{messages['boton.ver']}</span>
+									</h:outputLink>
+
+									<button type="button"
+										class="ui-button ui-widget ui-state-default ui-button-text-only btn btn-default btn-sm  dropdown-toggle caret-in-group"
+										data-toggle="dropdown">
+										<span class="ui-button-text">&#x25BC;</span> <span
+											class="sr-only">Toggle Dropdown</span>
+									</button>
+
+									<ul class="dropdown-menu" role="menu">
+										<li><h:outputLink title="#{messages['boton.editar']}"
+												styleClass="btn btn-default btn-xs menu-btn seleccionar"
+												ajax="false"
+												value="#{request.contextPath}#{rolListMB.editarRol(bean)}">
+												<span class="ui-button-text ui-c">#{messages['boton.editar']}</span>
+											</h:outputLink></li>
+										<li><p:commandButton
+												value="#{messages['boton.eliminar']}"
+												styleClass="btn btn-default btn-xs menu-btn seleccionar"
+												data-target="#confirmacionEliminar" data-toggle="modal">
+												<f:setPropertyActionListener
+													target="#{rolListMB.idRolAEliminar}" value="#{bean.id}" />
+											</p:commandButton></li>
+									</ul>
+								</div>
+							</p:fieldset>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</h:form>
+
+		<h:form id="buttonsForm">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<p:commandButton style="left:inherit;"
+						styleClass="btn btn-default btn-sm" ajax="false"
+						value="#{messages['boton.agregar.rol']}"
+						action="#{rolListMB.agregarRol}">
+					</p:commandButton>
+					<p:commandButton style="left:inherit"
+						value="#{messages['boton.eliminar.seleccion']}"
+						data-target="#confirmacionEliminarVarios" data-toggle="modal"
+						styleClass="btn btn-default btn-sm"
+						disabled="#{rolListMB.disableEliminar}">
+					</p:commandButton>
+				</div>
+			</div>
+
+		</h:form>
+
+
+		<h:form id="formdialog2" prependId="false">
+			<div class="modal fade" id="confirmacionEliminar" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&#215;</button>
+							<h4 class="modal-title" id="myModalLabel">#{messages['label.eliminar']}</h4>
+						</div>
+						<div class="modal-body">
+							<p class="form-control-static">#{messages['label.confirmar.eliminar']}</p>
+						</div>
+						<div class="modal-footer">
+							<p:commandButton style="left:inherit"
+								styleClass="btn btn-danger btn-sm" data-dismiss="modal"
+								update=":listaForm" actionListener="#{rolListMB.eliminarRol}"
+								ajax="true" value="#{messages['boton.aceptar']}"
+								onstart="disableBtn();"
+								oncomplete="enableBtn(); $('#confirmacionEliminar').modal('hide'); handleSaveRequest(xhr, status, args, '#{messages['mensaje.eliminar.rol.con.exito']}');">
+							</p:commandButton>
+							<p:commandButton style="left:inherit" update="@none"
+								inmediate="true" data-dismiss="modal"
+								styleClass="btn btn-default btn-sm"
+								value="#{messages['boton.cancelar']}">
+							</p:commandButton>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</h:form>
+		<h:form id="formdialog3" prependId="false">
+			<div class="modal fade" id="confirmacionEliminarVarios" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&#215;</button>
+							<h4 class="modal-title" id="myModalLabel">#{messages['label.eliminar']}</h4>
+						</div>
+						<div class="modal-body">
+							<p class="form-control-static">#{messages['label.confirmar.eliminar']}</p>
+						</div>
+						<div class="modal-footer">
+							<p:commandButton style="left:inherit"
+								styleClass="btn btn-danger btn-sm" data-dismiss="modal"
+								update=":listaForm" actionListener="#{rolListMB.eliminarRoles}"
+								ajax="true" value="#{messages['boton.aceptar']}"
+								onstart="disableBtn();"
+								oncomplete="enableBtn(); $('#confirmacionEliminarVarios').modal('hide'); handleSaveRequest(xhr, status, args, '#{messages['mensaje.eliminar.roles.con.exito']}');">
+							</p:commandButton>
+							<p:commandButton style="left:inherit" update="@none"
+								inmediate="true" data-dismiss="modal"
+								styleClass="btn btn-default btn-sm"
+								value="#{messages['boton.cancelar']}">
+							</p:commandButton>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</h:form>
+		<f:event type="preRenderView" listener="#{rolListMB.chekPermissions}" />
+	</ui:define>
+</ui:composition>

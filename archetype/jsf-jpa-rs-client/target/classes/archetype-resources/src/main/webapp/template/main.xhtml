@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html" locale="#currentLocale" encoding="UTF-8" />
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>#{messages['main.app.title']}</title>
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/bootstrap-datepicker.js" />
+	<h:outputScript name="js/locales/bootstrap-datepicker.es.js" />
+	<h:outputScript name="js/jquery.datetimepicker.js" />
+	<h:outputScript name="js/generate-menu.js" />
+	<script src="#{request.contextPath}/ckeditor/ckeditor.js" />
+	
+</h:head>
+
+<h:body>
+	<f:facet name="last">
+			<h:outputStylesheet name="css/jquery.datetimepicker.css" />
+			<h:outputStylesheet name="css/bootstrap.css" />
+			<h:outputStylesheet name="css/datepicker3.css" />
+			<h:outputStylesheet name="css/select2-bootstrap.css" />
+			<h:outputStylesheet name="css/custom-styles.css" />
+	</f:facet>
+	
+	<div class="mensaje" id="contenedorMensajes"></div>
+	<div id="contenido">
+
+		<ui:include src="/menu.xhtml" />
+		<ui:insert name="body" />
+
+		<p:ajaxStatus onstart="$('#status').show();"
+			oncomplete="$('#status').hide();" />
+
+		<div id="status" class="status">
+			<div class="progress progress-striped active status-bar">
+				<div class="progress-bar" role="progressbar" style="width: 100%"></div>
+			</div>
+		</div>
+	</div>
+	
+	<h:outputScript name="js/activate-tabs.js" />
+	<h:outputScript name="js/activate-alerts.js" />
+	<h:outputScript name="js/jquery.validate.js" />
+	<h:outputScript name="js/validation.js" />
+	
+	
+
+</h:body>
+</html>

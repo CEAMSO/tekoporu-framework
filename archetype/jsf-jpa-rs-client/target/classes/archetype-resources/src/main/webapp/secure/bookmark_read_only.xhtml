@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../template/main.xhtml">
+	<f:metadata>
+
+		<f:viewParam name="bid" value="#{bookmarkReadOnlyMB.idBookmark}" />
+
+		<f:event type="preRenderView"
+			listener="#{bookmarkReadOnlyMB.cargarBookmark}" />
+
+	</f:metadata>
+	<ui:define name="body">
+		<a name="top" />
+		<h:form id="buttonEventList">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<div class="container-fluid">
+						<h1>#{messages['titulo.bookmark.label']}</h1>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<h:form prependId="false" id="formulario"
+					styleClass="form-horizontal">
+					<div class="container-fluid">
+						<div class="form-group"></div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<h:outputLabel value="Clave " styleClass="control-label" />
+							</div>
+							<div class="col-md-4">
+								<p class="form-control-static">#{bookmarkReadOnlyMB.bookmark.description}</p>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<h:outputLabel value="Instancia " styleClass="control-label" />
+							</div>
+							<div class="col-md-4">
+								<div class="input-group date">
+									<p class="form-control-static">
+										#{bookmarkReadOnlyMB.bookmark.link}</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

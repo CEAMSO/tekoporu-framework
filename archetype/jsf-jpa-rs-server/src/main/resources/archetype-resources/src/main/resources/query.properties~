@@ -1,0 +1,2 @@
+root = ../standalone/deployments/${package}.war/WEB-INF/classes/querys/
+permiso.query=permisoQuery.txt

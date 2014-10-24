@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form id="title">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<div class="container-fluid">
+						<h1>#{messages['titulo.permiso.list.label']}</h1>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+		<h:form prependId="false" styleClass="form-horizontal" id="listaForm">
+
+			<div class="panel panel-default">
+				<div class="panel-heading titulo-panel">#{messages['label.lista.resultados']}</div>
+				<div class="entry" style="line-height: 200%;">
+					<p:dataTable id="list" var="bean" value="#{permisoListMB.permisos}"
+						tableStyleClass="table" rows="#{permisoListMB.permisos.pageSize}"
+						paginator="true" lazy="true" paginatorPosition="bottom"
+						paginatorAlwaysVisible="false" dynamic="true"
+						emptyMessage="#{messages['label.empty.message']}">
+						<p:column style="width:5%;">
+							<h:selectBooleanCheckbox
+								value="#{permisoListMB.selection[bean.id]}">
+							</h:selectBooleanCheckbox>
+						</p:column>
+						<p:column style="width:20%;">
+							<f:facet name="header">#{messages['permiso.label.clave']}</f:facet>
+							<h:outputText value="#{bean.clave}" />
+						</p:column>
+						<p:column style="width:20%;">
+							<f:facet name="header">#{messages['permiso.label.instancia']}</f:facet>
+							<h:outputText value="#{bean.instancia}" />
+						</p:column>
+						<p:column style="width:20%;">
+							<f:facet name="header">#{messages['permiso.label.operacion']}</f:facet>
+							<h:outputText value="#{bean.operacion}" />
+						</p:column>
+						<p:column style="width:20%;">
+							<f:facet name="header">#{messages['permiso.label.recurso']}</f:facet>
+							<h:outputText value="#{bean.recurso}" />
+						</p:column>
+
+						<p:column style="width:15%;">
+							<f:facet name="header">#{messages['label.acciones']}</f:facet>
+							<p:fieldset style="padding:0">
+								<div class="btn-group">
+									<h:outputLink title="#{messages['boton.ver']}"
+										styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default btn-sm"
+										value="#{request.contextPath}#{permisoListMB.verDetallesPermiso(bean)}"
+										rendered="#{(permisoListMB.isPermittedLeerPermiso(bean))}">
+										<span class="ui-button-text ui-c">#{messages['boton.ver']}</span>
+									</h:outputLink>
+								</div>
+							</p:fieldset>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</h:form>
+
+		<f:event type="preRenderView"
+			listener="#{permisoListMB.chekPermissions}" />
+	</ui:define>
+</ui:composition>

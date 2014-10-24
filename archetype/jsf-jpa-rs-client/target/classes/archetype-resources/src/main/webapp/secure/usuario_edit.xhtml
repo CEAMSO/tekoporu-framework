@@ -1,0 +1,164 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../template/main.xhtml">
+	<f:metadata>
+
+		<f:viewParam name="uid" value="#{usuarioEditMB.idUsuario}" />
+
+		<f:event type="preRenderView"
+			listener="#{usuarioEditMB.cargarUsuario}" />
+
+	</f:metadata>
+	<ui:define name="body">
+		<a name="top" />
+		<h:form id="title">
+			<div class="panel panel-default fondo-gris">
+				<div class="panel-body">
+					<div class="container-fluid">
+						<h1>#{messages['titulo.usuario.label']}</h1>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<h:form prependId="false" id="formulario"
+					styleClass="form-horizontal">
+					<div class="container-fluid">
+						<div class="form-group"></div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Nombre </label>
+							</div>
+							<div class="col-md-10 field">
+								<p:inputText id="nombre" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.usuario.nombre}"></p:inputText>
+								<p:watermark for="nombre" value="Nombre" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Apellido </label>
+							</div>
+							<div class="col-md-10 field">
+								<h:inputText id="apellido" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.usuario.apellido}"></h:inputText>
+								<p:watermark for="apellido" value="Apellido" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Nombre de
+									usuario </label>
+							</div>
+							<div class="col-md-10 field">
+								<h:inputText id="username" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.usuario.username}"></h:inputText>
+								<p:watermark for="username" value="Nombre de usuario" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Contraseña </label>
+							</div>
+							<div class="col-md-10 field">
+								<p:password id="pwd" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.pwd}" />
+								<ui:remove>
+									<p:inputText id="pwd" required="true"
+										styleClass="form-control next-autocomplete required"
+										value="#{usuarioEditMB.usuario.pwd}" />
+								</ui:remove>
+								<p:watermark for="pwd" value="Contraseña" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Email </label>
+							</div>
+							<div class="col-md-10 field">
+								<h:inputText id="email" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.usuario.email}">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</h:inputText>
+								<p:watermark for="email" value="Email" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-2">
+								<label class="control-label"><sup>*</sup> Teléfono </label>
+							</div>
+							<div class="col-md-10 field">
+								<h:inputText id="telefono" required="true"
+									styleClass="form-control next-autocomplete required"
+									value="#{usuarioEditMB.usuario.telefono}">
+									<f:validateRegex pattern="^(\+[0-9])?([0-9]+-?[0-9]+)$" />
+									<f:validateLength maximum="255"></f:validateLength>
+								</h:inputText>
+								<p:watermark for="telefono" value="Teléfono" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-6">
+								<h:outputLabel value="#{messages['usuario.rol']}"
+									styleClass="control-label" />
+								<p:dataTable id="list2" var="bean" styleClass="table-default"
+									value="#{usuarioEditMB.listaRoles}"
+									emptyMessage="#{messages['usuario.sin.roles']}">
+									<p:column style="width:10%;">
+										<h:selectBooleanCheckbox
+											value="#{usuarioEditMB.selectionRoles[bean.id]}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{bean.descripcion}" />
+									</p:column>
+								</p:dataTable>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="panel panel-default fondo-gris">
+						<div class="panel-body">
+							<p:commandButton style="left:inherit" id="guardar"
+								styleClass="btn btn-primary btn-sm"
+								title="#{messages['boton.guardar']}"
+								actionListener="#{usuarioEditMB.insertAjax}"
+								value="#{messages['boton.guardar']}"
+								rendered="#{!usuarioEditMB.modoEdicion}" ajax="true"
+								onclick="!$('#formulario').valid() ? console.log('no valido') : console.log('valido');"
+								onstart="disableBtn();"
+								oncomplete="handleSaveRequest(xhr, status, args, '#{messages['mensaje.creacion.usuario']}'); enableBtn();">
+							</p:commandButton>
+							<p:commandButton style="left:inherit" id="modificar"
+								styleClass="btn btn-primary  btn-sm"
+								title="#{messages['boton.guardar']}"
+								actionListener="#{usuarioEditMB.updateAjax}"
+								value="#{messages['boton.guardar']}"
+								rendered="#{usuarioEditMB.modoEdicion}" ajax="true"
+								onclick="!$('#formulario').valid() ? console.log('no valido') : disableBtn('desc');"
+								oncomplete="handleSaveRequest(xhr, status, args, '#{messages['mensaje.usuario.actualizado.correctamente']}'); enableBtn('desc');">
+							</p:commandButton>
+						</div>
+					</div>
+
+					<h:outputScript name="js/validation.js" />
+					<h:outputScript name="js/activate-editors.js" />
+
+				</h:form>
+			</div>
+
+		</div>
+	</ui:define>
+</ui:composition>

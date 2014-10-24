@@ -1,0 +1,4 @@
+host.client.domain=localhost
+host.client.protocol=https
+host.client.port=8443
+client.url=/app-client

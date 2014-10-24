@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<br />
+
+	<nav class="navbar navbar-default" role="navigation">
+		<ui:remove>
+			<!-- 
+			<a class="navbar-brand" href="#{request.contextPath}/index.html">#{messages['main.app.title']}</a>.
+			 -->
+		</ui:remove>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-2">
+			<ul class="nav navbar-nav json-menu">
+				<li class="dropdown" style="float: right;"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown">#{messages['menu.menuitem.part.usuario']}
+						<strong style="#{request.remoteUser eq null ? 'display:none;' : ''}">: #{request.remoteUser}</strong><b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu">
+						<li style="#{request.remoteUser eq null ? 'display:none;' : ''}">
+						<a href="#{request.contextPath}/login.html">#{messages['menu.menuitem.inicio.logout']}</a>
+						</li>
+						<li style="#{request.remoteUser ne null ? 'display:none;' : ''}"><a
+							href="#{request.contextPath}/login.html">#{messages['menu.menuitem.inicio.login']}</a>
+						</li>
+					</ul></li>
+
+				<li class="dropdown" style="float: right;"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown">
+						#{messages['menu.dashboard']}<b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu">
+						<li><h:link value="#{messages['menu.bookmark']}"
+								outcome="/secure/bookmark_list.xhtml?faces-redirect=true" /></li>
+						<li><h:link value="#{messages['menu.usuario']}"
+								outcome="/secure/usuario_list.xhtml?faces-redirect=true" /></li>
+						<li><h:link value="#{messages['menu.rol']}"
+								outcome="/secure/rol_list.xhtml?faces-redirect=true" /></li>
+						<li><h:link value="#{messages['menu.permiso']}"
+								outcome="/secure/permiso_list.xhtml?faces-redirect=true" /></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
+
+</ui:composition>
